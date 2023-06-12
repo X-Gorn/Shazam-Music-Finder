@@ -11,9 +11,13 @@ Telegram RoBot to Search a music on shazam directly from telegram.
 ### Environments:
 
 👉 Get API_KEY from http://api.xgorn.tech
+
 👉 Get APP_ID from http://my.telegram.org
+
 👉 Get API_HASH from http://my.telegram.org
+
 👉 Get BOT_TOKEN from [@botfather](tg://msg?text=/newbot)
+
 👉 Get OWNER_ID from [@MissRose_bot](tg://msg?text=/id)
 
 ## Telegram Support:
