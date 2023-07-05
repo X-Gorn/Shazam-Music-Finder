@@ -1,4 +1,5 @@
 import os, requests, json
+from xgorn_api import NoidAPI
 from pyrogram import Client, filters, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from urllib.parse import quote
@@ -9,6 +10,10 @@ APP_ID = int(os.environ['APP_ID'])
 BOT_TOKEN = os.environ['BOT_TOKEN']
 API_KEY = os.environ['API_KEY']
 OWNER_ID = os.environ['OWNER_ID']
+
+api = NoidAPI()
+
+api.api_key = API_KEY
 
 #Button
 START_BUTTONS=[
@@ -40,7 +45,7 @@ def shazam_music_finder(update):
     if update.video:
         url = get_file_dl_link(update.video.file_id)
         type_ = 'video'
-    js = requests.get('https://api.xgorn.tech/shazam_music_find', params={'api_key': API_KEY, 'url': url, 'type': type_}).json()
+    js = api.music.shazam(url=url, type=type_)
     if js['error']:
         return None, js['message']
     track = js['track']
