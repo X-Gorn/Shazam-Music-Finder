@@ -25,27 +25,15 @@ START_BUTTONS=[
 ]
 
 
-def get_file_dl_link(file_id, bot_token=BOT_TOKEN):
-    """Retrieves the file download link for a given file ID using the bot API."""
-    file_url = 'https://api.telegram.org/bot{}/getFile?file_id={}'.format(bot_token, file_id)
-    response = requests.get(file_url)
-    file_data = json.loads(response.content.decode('utf-8'))
-    file_path = file_data['result']['file_path']
-    file_url = 'https://api.telegram.org/file/bot{}/{}'.format(bot_token, file_path)
-    return file_url
-
-
 def shazam_music_finder(update):
+    file = update.download()
     if update.audio:
-        url = get_file_dl_link(update.audio.file_id)
         type_ = 'audio'
     if update.voice:
-        url = get_file_dl_link(update.voice.file_id)
         type_ = 'audio'
     if update.video:
-        url = get_file_dl_link(update.video.file_id)
         type_ = 'video'
-    js = api.music.shazam(url=url, type=type_)
+    js = api.music.shazam(file=file, type=type_)
     if js['error']:
         return None, js['message']
     track = js['track']
