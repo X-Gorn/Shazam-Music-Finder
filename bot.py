@@ -34,6 +34,7 @@ def shazam_music_finder(update):
     if update.video:
         type_ = 'video'
     js = api.music.shazam(file=file, type=type_)
+    os.remove(file)
     if js['error']:
         return None, js['message']
     track = js['track']
